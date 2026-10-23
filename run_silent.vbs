@@ -1,5 +1,9 @@
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.CurrentDirectory = "D:\Mark-LVI"
+Set fso = CreateObject("Scripting.FileSystemObject")
+currentDir = fso.GetParentFolderName(WScript.ScriptFullName)
+WshShell.CurrentDirectory = currentDir
 WshShell.Environment("PROCESS")("PYTHONUTF8") = "1"
 WshShell.Environment("PROCESS")("PYTHONIOENCODING") = "utf-8"
-WshShell.Run "D:\Mark-LVI\.venv\Scripts\pythonw.exe D:\Mark-LVI\main.py", 0, False
+pythonwExe = currentDir & "\.venv\Scripts\pythonw.exe"
+mainScript = currentDir & "\main.py"
+WshShell.Run """" & pythonwExe & """ """ & mainScript & """", 0, False

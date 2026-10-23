@@ -1,5 +1,5 @@
 {
-    "gemini_api_key": "AQ.Ab8RN6IjGktCaFxF9NPFjSpsoZKjoY7-EAxxe2D1P8UlYuAJMg",
+    "gemini_api_key": "YOUR_GEMINI_API_KEY_HERE",
     "os_system": "windows",
     "assistant_name": "JARVIS",
     "hud_style": "core",

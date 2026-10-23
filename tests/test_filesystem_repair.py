@@ -92,7 +92,7 @@ class TestFilesystemRepair(unittest.TestCase):
 
     def test_d_drive_and_c_drive_allowed(self):
         # D: drive path
-        d_test_file = Path("D:/Mark-LVI/scratch/d_drive_test.txt")
+        d_test_file = Path(__file__).resolve().parent.parent / "scratch" / "d_drive_test.txt"
         d_test_file.parent.mkdir(parents=True, exist_ok=True)
         try:
             raw_res = create_file(str(d_test_file), content="D drive verification")

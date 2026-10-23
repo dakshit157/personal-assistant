@@ -1,13 +1,17 @@
 @echo off
-title MARK-LVI AI Assistant
+title JARVIS AI Assistant
 cd /d "%~dp0"
 set PYTHONUTF8=1
 set PYTHONIOENCODING=utf-8
-echo Starting MARK-LVI...
-call .venv\Scripts\activate.bat
-python main.py %*
+echo Starting JARVIS AI Assistant...
+if exist "%~dp0.venv\Scripts\python.exe" (
+    "%~dp0.venv\Scripts\python.exe" main.py %*
+) else (
+    call .venv\Scripts\activate.bat
+    python main.py %*
+)
 if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo MARK-LVI exited with code %ERRORLEVEL%.
+    echo JARVIS exited with code %ERRORLEVEL%.
     pause
 )
