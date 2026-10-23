@@ -15,7 +15,7 @@ class MockFunctionCall:
 
 class TestAgentIntegration(unittest.TestCase):
     def test_actions_log_recording(self):
-        log_dir = Path("logs")
+        log_dir = Path(__file__).resolve().parent.parent / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
         log_file = log_dir / "actions.log"
 
