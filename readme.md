@@ -6,21 +6,13 @@ A sophisticated, Iron Man-inspired desktop AI assistant for Windows featuring a 
 
 ## 📌 Ownership, Attribution & Licensing
 
-This project is a customized personal assistant fork developed and maintained by **Daxit Rathod**, built on top of the open-source **MARK LVI** project by **FatihMakes**.
+This project is a customized personal assistant fork developed and maintained by **Daxit Rathod**
 
 - **Maintainer & Custom Enhancements**: **Daxit Rathod**
   - **Universal Browser Integration**: Dynamic multi-browser detection (Chrome, Edge, Brave, Firefox, Opera, etc.), session and user profile reuse (preventing repeated logins), and visit history tracking.
   - **Windows Path-Independent Architecture**: Resilient local launchers (`run.bat`, `run_silent.vbs`) and virtual environment path portability.
   - **Security & Data Sanitization**: Secure configuration templates (`api_keys.example.json`, `long_term.example.json`), strict git exclusion of private memory and credentials.
   - **Filesystem & Automation Reliability**: Verified file-creation tools, post-action checks, and comprehensive automated test suites.
-
-- **Original Base Architecture**: **FatihMakes** ([YouTube: @FatihMakes](https://www.youtube.com/@FatihMakes) | [Original Repository](https://github.com/FatihMakes/Mark-LVI))
-  - The base codebase is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International ([CC BY-NC 4.0](LICENSE))** license.
-  - In accordance with CC BY-NC 4.0, credit to FatihMakes is preserved, commercial use is prohibited, and this fork documents all custom modifications.
-
-- **Non-Commercial Notice**: This is a personal, non-commercial software project. Fictional concepts such as *J.A.R.V.I.S.* and Iron Man HUD aesthetics are inspired by Marvel / Disney works and are used under fair-use non-commercial terms.
-
----
 
 ## 📂 Project Directory Structure
 
@@ -252,7 +244,3 @@ python -m unittest tests/test_agent_integration.py
 *(All 23 test suites verify multi-browser detection, profile preservation, safe file handling, and truthfulness gates.)*
 
 ---
-
-## 📄 License
-
-This software is released under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license. See the [LICENSE](LICENSE) file for full legal terms.
