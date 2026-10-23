@@ -657,6 +657,8 @@ class JarvisLive:
         self._proactive        = ProactiveEngine()
         self._last_user_speech = time.monotonic()  # updated on every user utterance
         self._session_log: list[str] = []          # conversation turns for end-of-session summary
+        self._action_dedup_cache: dict[tuple, tuple[float, str]] = {}
+        self._action_dedup_window: float = 2.5     # sliding cooldown window in seconds
 
         self._enhanced_live = True  # proactive audio; auto-disabled if the server rejects it
         self._tuned_live    = True  # turn-taking / media / thinking knobs; same fallback
@@ -1278,9 +1280,42 @@ class JarvisLive:
 
         return out
 
+    def _log_action_execution(self, name: str, args: dict, result: str, duration: float, deduplicated: bool = False):
+        try:
+            log_dir = Path(__file__).resolve().parent / "logs"
+            log_dir.mkdir(parents=True, exist_ok=True)
+            log_file = log_dir / "actions.log"
+            timestamp = datetime.now().isoformat()
+            entry = {
+                "timestamp": timestamp,
+                "tool": name,
+                "arguments": args,
+                "duration_seconds": round(duration, 3),
+                "deduplicated": deduplicated,
+                "result_preview": str(result)[:300]
+            }
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry) + "\n")
+        except Exception as e:
+            print(f"[ActionsLog] Failed to log action: {e}")
+
     async def _execute_tool(self, fc) -> types.FunctionResponse:
         name = fc.name
         args = dict(fc.args or {})
+        t0 = time.monotonic()
+
+        # Sliding window deduplication (prevents rapid repeat loops from acoustic echo or retry)
+        dedup_key = (name, tuple(sorted((k, str(v)) for k, v in args.items())))
+        now = time.monotonic()
+        if dedup_key in self._action_dedup_cache:
+            last_time, last_res = self._action_dedup_cache[dedup_key]
+            if (now - last_time) < self._action_dedup_window:
+                print(f"[JARVIS] Deduplicating rapid repeat call to '{name}' ({now - last_time:.2f}s < {self._action_dedup_window}s)")
+                self._log_action_execution(name, args, last_res, 0.0, deduplicated=True)
+                return types.FunctionResponse(
+                    id=fc.id, name=name,
+                    response={"result": last_res}
+                )
 
         print(f"[JARVIS] 🔧 {name}  {args}")
         self.ui.set_state("THINKING")
@@ -1433,6 +1468,10 @@ class JarvisLive:
             self.ui.set_state("LISTENING")
 
         print(f"[JARVIS] 📤 {name} → {str(result)[:80]}")
+
+        duration = time.monotonic() - t0
+        self._action_dedup_cache[dedup_key] = (time.monotonic(), str(result))
+        self._log_action_execution(name, args, str(result), duration, deduplicated=False)
 
         # A tool that declared itself NON_BLOCKING also says when its answer may
         # re-enter the conversation. Without this the model finishes whatever it

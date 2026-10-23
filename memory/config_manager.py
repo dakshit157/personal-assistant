@@ -130,24 +130,20 @@ def save_push_to_talk_enabled(enabled: bool) -> None:
     _save_flag("push_to_talk_enabled", enabled)
 
 
-HUD_STYLES = ("face", "core")
+HUD_STYLES = ("core", "face")
 
 
 def get_hud_style() -> str:
-    """Which centrepiece the HUD draws: the animated head, or the reactor core.
-
-    Taste, not capability — both render in the same software painter and cost
-    about the same. Defaults to the head because that is what MARK LIV shipped
-    with; anyone who preferred the older look can switch back in ⚙ and the
-    choice survives a restart.
+    """Which centrepiece the HUD draws: the reactor core or the animated head.
+    Defaults to the Iron Man animated holographic core.
     """
-    v = str(load_api_keys().get("hud_style", "face")).strip().lower()
-    return v if v in HUD_STYLES else "face"
+    v = str(load_api_keys().get("hud_style", "core")).strip().lower()
+    return v if v in HUD_STYLES else "core"
 
 
 def save_hud_style(style: str) -> None:
     s = str(style or "").strip().lower()
-    _save_flag("hud_style", s if s in HUD_STYLES else "face")
+    _save_flag("hud_style", s if s in HUD_STYLES else "core")
 
 
 # ── Live-session tuning ──────────────────────────────────────────────────────

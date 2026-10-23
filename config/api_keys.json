@@ -1,0 +1,23 @@
+{
+    "gemini_api_key": "AQ.Ab8RN6IjGktCaFxF9NPFjSpsoZKjoY7-EAxxe2D1P8UlYuAJMg",
+    "os_system": "windows",
+    "assistant_name": "JARVIS",
+    "hud_style": "core",
+    "ui_color": "#ff8700",
+    "voice_name": "Puck",
+    "user_name": "",
+    "providers": {
+        "mode": "gemini",
+        "pipeline": {
+            "stt": "",
+            "llm": "",
+            "tts": ""
+        },
+        "creds": {},
+        "sidecar": "",
+        "sidecar_first": false
+    },
+    "push_to_talk_enabled": false,
+    "morning_brief_enabled": false,
+    "camera_index": 0
+}

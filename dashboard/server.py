@@ -876,12 +876,12 @@ class DashboardServer:
                 return HTMLResponse("""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
 <style>
-  body{background:#07090f;color:#dde3ed;font-family:sans-serif;
+  body{background:#050403;color:#ffe0b2;font-family:sans-serif;
        display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center}
-  h2{color:#f87171;margin-bottom:12px}p{color:#5e6a7e;font-size:14px}
+  h2{color:#ff3b30;margin-bottom:12px}p{color:#a87839;font-size:14px}
 </style></head>
 <body><div><h2>Link Expired</h2>
-<p>Press <strong style="color:#dde3ed">Remote Control</strong> in JARVIS to get a new QR code.</p>
+<p>Press <strong style="color:#ffe0b2">Remote Control</strong> in JARVIS to get a new QR code.</p>
 </div></body></html>""")
 
             del self._pending_keys[key]
@@ -901,9 +901,9 @@ class DashboardServer:
             return HTMLResponse(f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
 <style>
-  body{{background:#07090f;color:#dde3ed;font-family:sans-serif;
+  body{{background:#050403;color:#ffe0b2;font-family:sans-serif;
        display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center}}
-  p{{color:#5e6a7e;font-size:14px}}
+  p{{color:#a87839;font-size:14px}}
 </style></head>
 <body>
 <script>
